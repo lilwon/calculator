@@ -1,0 +1,9 @@
+body {
+    background-color: grey;
+}
+
+.calc-container {
+    display: flex;
+    justify-content: center;
+    background-color: blue;
+}
