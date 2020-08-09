@@ -1,9 +1,25 @@
-body {
-    background-color: grey;
-}
 
 .calc-container {
     display: flex;
-    justify-content: center;
-    background-color: blue;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: lightblue;
+    width: 325px;
+    height: 500px;
+}
+
+.screen-display {
+    background-color: #f1f1f1;
+    width: 325px;
+    height: 75px; 
+    text-align: center;
+    border: solid 1px;
+}
+
+.keys {
+    background-color: #f1f1f1;
+    width: 70px; 
+    height: 60px;
+    text-align: center;
+    border: solid 1px;
 }
