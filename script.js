@@ -22,7 +22,20 @@ let ans = 11;
 let screen = document.querySelector("#screen");
 screen.innerHTML = ans;
 
-// screen shows nothing
+// used to store values..
+let x = 0; 
+let y = 0;
+
+// screen shows "nothing"
 function reset() {
     screen.innerHTML = 0;
+}
+
+// button press 
+function input( userVal ) {
+    screen.innerHTML = screen.innerHTML.concat(userVal);
+    console.log(screen.innerHTML); 
+
+    return screen.innerHTML;
+
 }
