@@ -17,3 +17,12 @@ const operate = (a, b, operator) => {
         return divide(a, b); 
     }
 };
+
+let ans = 11; 
+let screen = document.querySelector("#screen");
+screen.innerHTML = ans;
+
+// screen shows nothing
+function reset() {
+    screen.innerHTML = 0;
+}
