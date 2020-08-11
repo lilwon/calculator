@@ -18,21 +18,29 @@ const operate = (a, b, operator) => {
     }
 };
 
-let ans = 11; 
+let ans = 0;
 let screen = document.querySelector("#screen");
 screen.innerHTML = ans;
 
 // used to store values..
 let x = 0; 
 let y = 0;
+let opFlag = false; 
 
 // screen shows "nothing"
 function reset() {
     screen.innerHTML = 0;
 }
 
-// button press 
+// button presses? not really the calculations.  
 function input( userVal ) {
+
+    // check to see if operater was was clicked? 
+
+    if ( screen.innerHTML === "0" ) {
+        return screen.innerHTML = userVal; 
+    }
+
     screen.innerHTML = screen.innerHTML.concat(userVal);
     console.log(screen.innerHTML); 
 
