@@ -1,5 +1,5 @@
-<h1>Calculator</h1>
-<p>Inspired by The Odin Project<p>
+# Calculator
+Inspired by The Odin Project
 
-<h2>Intro</h2>
-<p>A basic calculator</p>
+## Intro
+A basic calculator

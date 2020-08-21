@@ -4,82 +4,142 @@ const mult = (a, b) => { return a * b };
 const divide = (a, b) => { return a / b};  
 
 const operate = (a, b, operator) => {
-    if ( operator === "add" ) {
+    if ( operator === "+" ) {
         return add(a, b); 
     }
-    else if ( operator === "sub") {
+    else if ( operator === "-") {
         return subtract(a, b);
     }
-    else if ( operator === "mult") {
+    else if ( operator === "x") {
         return mult(a, b);
     }
-    else if ( operator === "div") {
+    else if ( operator === "/") {
         return divide(a, b); 
     }
 };
 
-let display = 0;
-let screen = document.querySelector("#screen");
-screen.innerHTML = display;
-
-
-// used to store values..
-let x = 0; 
-let y = 0;
-let opFlag = false;
-let operator; 
-let count = 0
-// screen shows "nothing"
 function reset() {
     screen.innerHTML = 0;
 }
 
-function detectOperator( userVal ) {
-    if ( userVal == "div" || userVal == "mult" || userVal == "add" || userVal == "sub" ) {
-        opFlag = true; 
-        // save x value
-        x = parseInt(screen.innerHTML);
-        operator = userVal; 
-        
-        console.log(x); 
-        console.log(operator); 
+// all the values need to be saved
+let display = 0;
+let screen = document.querySelector("#screen");
+screen.innerHTML = display;
+let x = 0.0;
+let y = 0.0; 
+let operator;
+let xFlag = false; 
+let yFlag = false;
+
+// Splitting up inputs to make it easier
+function readScreen(userVal) {
+
+    if ( xFlag == true ) {
+        // start finding detect the Y value
+        // that means everything has been calculated.
+        // so set Y to X
+
+        console.log("detect Y now");
+
+        if ( yFlag == true ) {
+            x = y; 
+            y = 0.0; // for new values
+            operator = "";
+            return;
+        }
+
+        yFlag = detectY(userVal);
+        return
     }
-    return;
+   
+    xFlag = detectX(userVal);
+
+    return
 }
 
-function detectEqual( userVal) {
+// Checks if there's an X value that was entered
+function detectX(userVal) {
 
-    if ( userVal == "equal" ) {
-        const pos = screen.innerHTML.indexOf(operator);
-        console.log(pos);
-        y = screen.innerHTML.substring(pos+operator.length, screen.innerHTML.length);
-        console.log(y);
+    // checks for an operator
+    if ( detectOperator(userVal) == true ) {
+        console.log("isOperator is true");
+        // set the value in "x";
+        const end = screen.innerHTML.indexOf(operator);
+        const convert = screen.innerHTML.substring(0, end);
+        x = parseFloat(convert);
+
+        return true;
     }
 
-    return;
+    input(userVal);
+    return false;
+}
+
+function detectY(userVal) {
+
+    if ( detectEqual(userVal) == true) {
+        console.log("isEqual is true");
+        // set the value in "y"; 
+        const begin = screen.innerHTML.indexOf(operator);
+        const convert = screen.innerHTML.substring(begin+1, screen.innerHTML.length-1 )
+
+        console.log("Y convert: " + convert);
+
+        return true;
+    }
+
+    input(userVal);
+    return false 
+}
+
+function detectOperator(userVal) {
+    if (userVal == "div" || userVal == "mult" || userVal == "sub" || userVal == "add") {
+        switch (userVal) {
+            case "div":
+                operator = "/"; 
+                screen.innerHTML = screen.innerHTML.concat("/"); 
+                return true;
+                break;
+
+            case "mult":
+                operator = "x"; 
+                screen.innerHTML = screen.innerHTML.concat("x"); 
+                return true;
+                break;
+
+            case "add":
+                operator = "+";
+                screen.innerHTML = screen.innerHTML.concat("+"); 
+                return true;
+                break;
+
+            case "sub":
+                operator = "-";
+                screen.innerHTML = screen.innerHTML.concat("-"); 
+                return true;
+                break;
+        }
+    }
+    return false;
+}
+
+function detectEqual(userVal) {
+
+    if ( userVal == "equal" ) {
+        return true; 
+    }
+    return false;
 }
 
 // button presses? not really the calculations.  
 function input( userVal ) {
 
-    // save the value and swith save val to y
-    detectOperator(userVal);
-
-    detectEqual(userVal);
-
-
     if ( screen.innerHTML === "0" ) {
         return screen.innerHTML = userVal; 
     }
 
-    if ( y == 0 ) {
-        screen.innerHTML = screen.innerHTML.concat(userVal);
-        console.log(screen.innerHTML); 
-    }
-    else {
-        screen.innerHTML = operate(x, y, operator);
-    }
+    screen.innerHTML = screen.innerHTML.concat(userVal);
 
-    return screen.innerHTML;
-
+    console.log(screen.innerHTML);
 }
