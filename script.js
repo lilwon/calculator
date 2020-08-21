@@ -66,7 +66,6 @@ function detectX(userVal) {
 
 function detectY(userVal) {
     if ( detectEqual(userVal) == true) {
-        console.log("isEqual is true");
         // set the value in "y"; 
         const begin = screen.innerHTML.indexOf(operator);
         const convert = screen.innerHTML.substring(begin+1, screen.innerHTML.length )
@@ -74,12 +73,9 @@ function detectY(userVal) {
 
         showAns();
 
-        // in case nothing resets, but  need to
-        // somehow check for operator
         x = tempAns;
         y = 0.0; 
-        xFlag = false;
-        // need to somehow change or get an operator from user somehow??
+        xFlag = false; // reset to false otherwise can't detect other operators
         return;
     }
 
