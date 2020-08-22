@@ -65,7 +65,7 @@ function detectX(userVal) {
 }
 
 function detectY(userVal) {
-    if ( detectEqual(userVal) == true) {
+    if ( detectEqual(userVal) == true || detectOperator(userVal) == true) {
         // set the value in "y"; 
         const begin = screen.innerHTML.indexOf(operator);
         const convert = screen.innerHTML.substring(begin+1, screen.innerHTML.length )
