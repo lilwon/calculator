@@ -18,6 +18,7 @@ const operate = (a, b, operator) => {
     }
 };
 
+
 function reset() {
     screen.innerHTML = 0;
     xFlag= false;
@@ -36,6 +37,7 @@ let y = 0.0;
 let tempAns = 0.0;
 let operator;
 let xFlag = false;
+
 
 // Splitting up inputs to make it easier
 function readScreen(userVal) {
@@ -57,6 +59,8 @@ function detectX(userVal) {
         const convert = screen.innerHTML.substring(0, end);
         x = parseFloat(convert);
 
+        console.log("DetectX x:" + x);
+
         return true;
     }
 
@@ -65,31 +69,72 @@ function detectX(userVal) {
 }
 
 function detectY(userVal) {
-    if ( detectEqual(userVal) == true || detectOperator(userVal) == true) {
-        // set the value in "y"; 
+    
+    // detects if operator pressed again
+    console.log("DetectY: " + userVal);
+
+    if (  detectOperator(userVal) == true) {
+        const checkOp= firstOccurrence();
+
+        const begin = screen.innerHTML.indexOf(checkOp);
+        const convert = screen.innerHTML.substring(begin+1, screen.innerHTML.length-1 )
+
+        y = parseFloat(convert);
+
+        if ( operator != checkOp) {
+            showSecondOp(checkOp); 
+        }
+        else {
+            showOperatorAns();
+        }
+    
+        x = tempAns;
+        y = 0.0; 
+
+        xFlag = true; // reset to false otherwise can't detect other operators
+        return;
+    }
+    else if ( detectEqual(userVal ) == true ) {
+
+        // find the first operator it sees.
+      
         const begin = screen.innerHTML.indexOf(operator);
         const convert = screen.innerHTML.substring(begin+1, screen.innerHTML.length )
         y = parseFloat(convert);
 
-        showAns();
+        showTempAns();
 
         x = tempAns;
         y = 0.0; 
+
         xFlag = false; // reset to false otherwise can't detect other operators
         return;
+
     }
 
     input(userVal);
     return; 
 }
 
-function showAns() {
+function showTempAns() {
     const ans = operate(x, y, operator);
     tempAns = ans;
     console.log("x: " + x + " y: " + y + " op: " + operator);
     screen.innerHTML = ans.toString(); 
     return; 
 }
+
+function firstOccurrence() {
+
+    const currentString = screen.innerHTML;
+
+    for ( let i = 0; i < screen.innerHTML.length; i++ ) {
+        if ( currentString[i] == "x" || currentString[i] == "/" || currentString[i] == "+" || currentString[i] == "-" ) {
+            return currentString[i];
+        }
+    }
+}
+
 
 // Might need to find a way to shorten this..
 function detectOperator(userVal) {
@@ -121,6 +166,24 @@ function detectOperator(userVal) {
         }
     }
     return false;
+}
+
+function showOperatorAns() {
+    const ans = operate(x, y, operator);
+    tempAns = ans; 
+    console.log("showOperatorAns: x:" + x + " y:" + y + " op:" + operator);
+
+    screen.innerHTML = ans.toString() + operator;
+    console.log(screen.innerHTML);
+ 
+    return;
+}
+
+function showSecondOp(newOp)  {
+    const ans = operate(x, y, newOp); 
+    tempAns = ans; 
+    
+    screen.innerHTML = ans.toString() + operator;
 }
 
 // Did someone press the equal sign? 
