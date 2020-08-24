@@ -8,8 +8,10 @@ body {
 
 .center {
     position: relative;
-    top: 200px;
-    left: 41%;
+    top: 0;
+    margin-top: 15%;
+    left: 0;
+    margin-left: 41%;
 }
 
 .calc-container {
@@ -32,6 +34,8 @@ body {
     font-family: "Orbitron";
     font-size: 30px;
     overflow: hidden;
+    box-sizing: border-box;
+    padding: 20px 0px;
 }
 
 .keys {
@@ -39,10 +43,12 @@ body {
     width: 70px; 
     height: 60px;
     text-align: center;
-    border: solid 1px;
+    border: 2px solid;
+    border-radius: 5px;
     cursor: pointer;
     font-family: "Recursive"; 
     font-size: 20px;
+
 }
 
 .footer {
