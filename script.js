@@ -32,6 +32,7 @@ function reset() {
 let display = 0;
 let screen = document.querySelector("#screen");
 screen.innerHTML = display;
+
 let x = 0.0;
 let y = 0.0; 
 let tempAns = 0.0;
@@ -69,10 +70,6 @@ function detectX(userVal) {
 }
 
 function detectY(userVal) {
-    
-    // detects if operator pressed again
-    console.log("DetectY: " + userVal);
-
     if (  detectOperator(userVal) == true) {
         const checkOp= firstOccurrence();
 
@@ -81,23 +78,24 @@ function detectY(userVal) {
 
         y = parseFloat(convert);
 
+        // must check that the operators are equal
         if ( operator != checkOp) {
+            // Ex: 5 + 6 - 1 * 3 ....
             showSecondOp(checkOp); 
         }
         else {
+            // Ex: 5 + 6 + 7 + ...
             showOperatorAns();
         }
     
         x = tempAns;
         y = 0.0; 
 
-        xFlag = true; // reset to false otherwise can't detect other operators
+        // true bc x value shouldn't be erased
+        xFlag = true; 
         return;
     }
     else if ( detectEqual(userVal ) == true ) {
-
-        // find the first operator it sees.
-      
         const begin = screen.innerHTML.indexOf(operator);
         const convert = screen.innerHTML.substring(begin+1, screen.innerHTML.length )
         y = parseFloat(convert);
@@ -111,21 +109,22 @@ function detectY(userVal) {
         return;
 
     }
-
     input(userVal);
     return; 
 }
 
+// Displays when user presses the = button 
 function showTempAns() {
     const ans = operate(x, y, operator);
     tempAns = ans;
-    console.log("x: " + x + " y: " + y + " op: " + operator);
     screen.innerHTML = ans.toString(); 
     return; 
 }
 
+// Needs to find the first occurance of the operator 
+// For cases :  5 + 7 - 3 
+// Looks for the addition to add it first.. 
 function firstOccurrence() {
-
     const currentString = screen.innerHTML;
 
     for ( let i = 0; i < screen.innerHTML.length; i++ ) {
@@ -134,7 +133,6 @@ function firstOccurrence() {
         }
     }
 }
-
 
 // Might need to find a way to shorten this..
 function detectOperator(userVal) {
