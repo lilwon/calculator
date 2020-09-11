@@ -1,7 +1,8 @@
 const add = (a, b) => { return a + b };
 const subtract = (a, b) => { return a - b};
 const mult = (a, b) => { return a * b };
-const divide = (a, b) => { return a / b};  
+const divide = (a, b) => { return a / b}; 
+
 
 const operate = (a, b, operator) => {
     if ( operator == "+" ) {
@@ -42,6 +43,12 @@ let xFlag = false;
 
 // Splitting up inputs to make it easier
 function readScreen(userVal) {
+
+    if ( userVal == "del" ) {
+        deleteChar(); 
+        return;
+    }
+
     if ( xFlag == true ) {
         // DOESN'T WORK WHEN VALUE WANTS TO KEEP DIVIDING
         detectY(userVal);
@@ -49,6 +56,21 @@ function readScreen(userVal) {
     }
     xFlag = detectX(userVal);
     return
+}
+
+// Erases a character
+function deleteChar() {
+    const len = screen.innerHTML.length;
+    
+    if ( len == 1 ) {
+        // check to see if the character is 0,
+        reset();
+    }
+    else {
+        // erase the character.
+        screen.innerHTML = screen.innerHTML.slice(0, len-1);
+    }
+    
 }
 
 // Checks if there's an X value that was entered
@@ -60,7 +82,7 @@ function detectX(userVal) {
         const convert = screen.innerHTML.substring(0, end);
         x = parseFloat(convert);
 
-        console.log("DetectX x:" + x);
+        //console.log("DetectX x:" + x);
 
         return true;
     }

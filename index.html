@@ -8,14 +8,14 @@
         <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Recursive&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
 
-        <link rel="icon" href="/icons/calc-favicon.png" sizes="16x16 32x32" type="image/png">
+        <link rel="shortcut icon" href="/icons/calc-favicon.png?" sizes="16x16 32x32" type="image/png">
 
     </head>
     <body>
         <div class="center">
             <div class="calc-container">
                 <div id="screen" class="screen-display"></div>
-                <div class="keys">←</div>
+                <button onclick="readScreen(`del`)" class="keys">←</button>
                 <button onclick="reset()" class="keys">CE</button>
                 <div class="keys">%</div>
                 <button onclick="readScreen(`div`)" class="keys">÷</button>
