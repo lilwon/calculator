@@ -59,19 +59,8 @@ function readScreen(userVal) {
 }
 
 // Erases a character
-function deleteChar() {
-    const len = screen.innerHTML.length;
-    
-    if ( len == 1 ) {
-        // check to see if the character is 0,
-        reset();
-    }
-    else {
-        // erase the character.
-        screen.innerHTML = screen.innerHTML.slice(0, len-1);
-    }
-    
-}
+const deleteChar = () => { return screen.innerHTML.length == 1 ? reset() : 
+    screen.innerHTML = screen.innerHTML.slice(0, screen.innerHTML.length-1) }
 
 // Checks if there's an X value that was entered
 function detectX(userVal) {
